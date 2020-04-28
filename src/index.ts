@@ -4,3 +4,4 @@ export * from "./enum/api.code.enum";
 export * from "./exception/api.exception";
 export * from "./http";
 export * from "./pipe/params.validation.pipe";
+export * from "./constants/common.constant";

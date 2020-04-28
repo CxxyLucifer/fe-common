@@ -1,6 +1,6 @@
 {
   "name": "@ife/fe-common",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "fe common modules",
   "author": "liuhui",
   "license": "MIT",
@@ -8,7 +8,6 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "rimraf dist && tsc -p tsconfig.json",
-    "publish": "npm run build && npm publish",
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "start:dev": "ts-node -r tsconfig-paths/register src/index.ts",
     "start:prod": "node dist/index.js",
