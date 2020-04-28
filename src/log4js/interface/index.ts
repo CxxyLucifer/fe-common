@@ -1,5 +1,5 @@
 export interface IOption {
     level?: 'ALL' | 'INFO' | 'WARN' | 'ERROR';
-    nodeEnv?: 'dev' | 'sit' | 'pre' | 'prd';
-    logFilePrefix: string;
+    env?: 'dev' | 'sit' | 'pre' | 'prd' | string;
+    prefix: string;
 }

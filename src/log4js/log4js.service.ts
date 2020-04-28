@@ -10,11 +10,11 @@ export class Log4jsService implements LoggerService {
     private loggers: Map<string, Logger>;
     constructor(@Inject(LOG4JS_OPTION) options: IOption) {
         this.loggers = new Map();
-        const { nodeEnv = 'dev', level = "ALL", logFilePrefix} = options
+        const { env = 'dev', level = "ALL", prefix} = options
 
-        const basePath = nodeEnv === 'dev' ? resolve(process.cwd(), "./logs") : resolve(`/opt/ihome/logs/${logFilePrefix}`)
+        const basePath = env === 'dev' ? resolve(process.cwd(), "./logs") : resolve(`/opt/ihome/logs/${prefix}`)
 
-        const config = buildConfig(level, basePath, logFilePrefix);
+        const config = buildConfig(level, basePath, prefix);
 
         configure(config);
     }

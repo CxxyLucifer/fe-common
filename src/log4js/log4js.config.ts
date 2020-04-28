@@ -1,6 +1,5 @@
 import { Configuration } from "log4js";
 import { resolve, join } from "path";
-const basePath = resolve(process.cwd(), "logs");
 
 export function buildConfig(level: string, path: string, prefix: string): Configuration {
     return {
