@@ -1,75 +1,83 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
-
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# fe-common
 
 ## Installation
 
-```bash
-$ npm install
+    $ npm install @ife/fe-common log4js
+
+## Usage
+
+1.能捕获所有的日志, 推荐使用此方式
+
+```ts
+import { Log4jsService } from "@ife/fe-common";
+import { NestFactory } from "@nestjs/core";
+import { ApplicationModule } from "./app.module";
+
+async function bootstrap() {
+    // 使用默认的打印方式, 将会在工作目录下生成logs文件夹
+    // 使用dateFile的方式存储文件
+    // 日志打印等级为ALL
+    const logger = new Log4jsService({...});
+
+    // 与上面相同, 但是可以自定义日志等级
+    const logger = new Log4jsService({...});
+
+    // 自定义日志打印方式
+    const logger = new Log4jsService({...});
+
+    // 创建时就指定logger, 所有框架消息都能打印
+    const app = await NestFactory.create(ApplicationModule, {logger});
+
+    await app.listen(3000);
+}
+
+import { Logger } from "@nestjs/common";
+
+class OtherService {
+    // 创建loger对象
+    private readonly logger = new Logger("OtherService");
+
+    constructor() {
+        this.logger.log("HAHA!"); // print:[2019-08-10T15:45:48.875] [INFO] OtherService - HAHA!
+    }
+}
 ```
 
-## Running the app
+2.使用模块
 
-```bash
-# development
-$ npm run start
+```ts
+import { Log4jsService } from "@ife/fe-common";
+import { NestFactory } from "@nestjs/core";
+import { ApplicationModule } from "./app.module";
 
-# watch mode
-$ npm run start:dev
+async function bootstrap() {
+    const app = await NestFactory.create(ApplicationModule);
+    // 获得logger对象
+    const logger = app.get(Log4jsService);
+    app.useLogger(logger);
 
-# production mode
-$ npm run start:prod
+    await app.listen(3000);
+}
+
+import { Module } from "@nestjs/common";
+import { Log4jsModule } from "@ife/fe-common";
+
+@Module({
+    imports: [Log4jsModule.forRoot()], // 注册模块
+    controllers: []
+})
+export class ApplicationModule {}
+
+import { Logger } from "@nestjs/common";
+import { Log4jsService } from "@ife/fe-common";
+
+class OtherService {
+    private readonly logger = new Logger("OtherService");
+
+    constructor(private readonly log4jService: Log4jsService) {
+        this.logger.log("HAHA!"); // print:[2019-08-10T15:45:48.875] [INFO] OtherService - HAHA!
+
+        this.log4jService.log("HAHA!", "OtherService"); // print:[2019-08-10T15:45:48.875] [INFO] OtherService - HAHA!
+    }
+}
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).

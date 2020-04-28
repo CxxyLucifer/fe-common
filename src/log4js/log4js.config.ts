@@ -2,15 +2,15 @@ import { Configuration } from "log4js";
 import { resolve, join } from "path";
 const basePath = resolve(process.cwd(), "logs");
 
-export function buildDefaultConfig(level: string): Configuration {
+export function buildConfig(level: string, path: string, prefix: string): Configuration {
     return {
         appenders: {
             logToErrorFile: {
                 type: "dateFile",
-                filename: join(basePath, "err/err"),
+                filename: join(path, `${prefix}-err`),
                 alwaysIncludePattern: true,
                 pattern: "yyyy-MM-dd.log",
-                daysToKeep: 14
+                daysToKeep: 0
             },
             errorLogger: {
                 type: "logLevelFilter",
@@ -19,10 +19,10 @@ export function buildDefaultConfig(level: string): Configuration {
             },
             appLogger: {
                 type: "dateFile",
-                filename: join(basePath, "all/all"),
+                filename: join(path, `${prefix}-all`),
                 alwaysIncludePattern: true,
                 pattern: "yyyy-MM-dd.log",
-                daysToKeep: 14
+                daysToKeep: 0
             },
             consoleLogger: {
                 type: "console",

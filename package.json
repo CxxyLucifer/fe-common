@@ -1,5 +1,5 @@
 {
-  "name": "fe-common",
+  "name": "@ife/fe-common",
   "version": "0.0.1",
   "description": "fe common modules",
   "author": "liuhui",
@@ -27,5 +27,11 @@
     "tsconfig-paths": "^3.8.0",
     "reflect-metadata": "^0.1.13",
     "typescript": "^3.5.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npm.ihomefnt.org"
   }
 }
