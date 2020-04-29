@@ -1,6 +1,6 @@
 {
-  "name": "@ife/fe-common",
-  "version": "0.0.3",
+  "name": "ihome-fe-common",
+  "version": "0.0.4",
   "description": "fe common modules",
   "author": "liuhui",
   "license": "MIT",
@@ -21,10 +21,12 @@
     "@nestjs/common": "^6.7.2",
     "@nestjs/core": "^6.7.2",
     "@nestjs/platform-express": "^6.7.2",
+    "@types/dotenv": "^8.2.0",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.7.1",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
+    "dotenv": "^8.2.0",
     "log4js": "^4.5.1",
     "mocha": "^6.2.0",
     "reflect-metadata": "^0.1.13",
@@ -38,6 +40,6 @@
     "dist"
   ],
   "publishConfig": {
-    "registry": "http://registry.npm.ihomefnt.org"
+    "registry": "http://registry.npmjs.org"
   }
 }

@@ -1,5 +1,5 @@
 import { Configuration } from "log4js";
-import { resolve, join } from "path";
+import { join } from "path";
 
 export function buildConfig(level: string, path: string, prefix: string): Configuration {
     return {

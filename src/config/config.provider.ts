@@ -1,10 +1,10 @@
 import { Provider } from "@nestjs/common";
-import { LOG4JS_OPTION } from "../constants/common.constant";
 import { IOption } from "./interface";
+import { CONFIG_OPTION } from "../constants/common.constant";
 
-export function createOptionProvider(options?: IOption): Provider {
+export function createConfigOptionProvider(options?: IOption): Provider {
     return {
-        provide: LOG4JS_OPTION,
+        provide: CONFIG_OPTION,
         useFactory: function() {
             return options;
         }

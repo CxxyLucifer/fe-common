@@ -1,9 +1,9 @@
 import { Inject, LoggerService, Injectable } from "@nestjs/common";
 import { getLogger, Logger, shutdown, configure } from "log4js";
-import { LOG4JS_OPTION } from "./log4js.constants";
 import { buildConfig } from "./log4js.config";
 import { resolve } from "path";
 import { IOption } from "./interface";
+import { LOG4JS_OPTION } from "../constants/common.constant";
 
 @Injectable()
 export class Log4jsService implements LoggerService {
