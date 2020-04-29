@@ -1,6 +1,6 @@
 {
   "name": "ihome-fe-common",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "fe common modules",
   "author": "liuhui",
   "license": "MIT",
@@ -17,6 +17,12 @@
     "ife",
     "fe-common"
   ],
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "log4js": "^4.5.1",
+    "nodemailer": "^6.4.6",
+    "nodemailer-smtp-transport": "^2.7.4"
+  },
   "devDependencies": {
     "@nestjs/common": "^6.7.2",
     "@nestjs/core": "^6.7.2",
@@ -26,8 +32,6 @@
     "@types/node": "^12.7.1",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
-    "dotenv": "^8.2.0",
-    "log4js": "^4.5.1",
     "mocha": "^6.2.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^2.6.3",

@@ -1,3 +1,3 @@
 ## Installation
 
-    $ npm install ihome-fe-common log4js
+    $ npm install ihome-fe-common
