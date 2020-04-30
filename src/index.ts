@@ -10,4 +10,5 @@ export * from "./config/config.service";
 export * from "./email/email.service";
 export * from "./filter/response.error.exception.filter";
 export * from "./interceptor/response.success.transform.interceptor";
+export * from "./type-orm/typeorm.logger";
 
