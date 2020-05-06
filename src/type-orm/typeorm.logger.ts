@@ -13,7 +13,7 @@ export class TypeOrmLogger implements Logger {
         this.log4js.log(`logQuery:${query} parameters:${parameters}`,'typeOrm')
     }
     logQueryError(error: string, query: string, parameters?: any[], queryRunner?: QueryRunner) {
-        this.log4js.error(`logQueryError:${query} parameters:${parameters}`,'','typeOrm')
+        this.log4js.error(`logQueryError:${query} parameters:${parameters} error:${error}`,'','typeOrm')
     }
     logQuerySlow(time: number, query: string, parameters?: any[], queryRunner?: QueryRunner) {
         this.log4js.warn(`logQuerySlow:${query} parameters:${parameters} costTime:${time}ms`,'typeOrm')
