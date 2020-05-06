@@ -8,8 +8,13 @@ import { IOption, BaseResponse } from './interface';
 
 export class ResponseSuccessTransformInterceptor<T> implements NestInterceptor<T, BaseResponse<T>> {
   option: IOption;
+  log4;
   constructor(option?: IOption){
     this.option = option;
+    const { enableLog = false, env, prefix } = option;
+    if (enableLog) {
+      this.log4 = new Log4jsService({level: 'INFO', env, prefix})
+    }
   }
 
   intercept(
@@ -17,12 +22,7 @@ export class ResponseSuccessTransformInterceptor<T> implements NestInterceptor<T
     next: CallHandler<T>,
   ): Observable<BaseResponse<T>> | Promise<Observable<BaseResponse<T>>> {
     const request: Request = context.switchToHttp().getRequest()
-    const { enableLog = false, env, prefix } = this.option;
-
-    let log4;
-    if (enableLog) {
-      log4 = new Log4jsService({level: 'INFO', env, prefix})
-    }
+    const { enableLog = false } = this.option;
     
     const now = Date.now();
     const requestInfo = {
@@ -42,7 +42,7 @@ export class ResponseSuccessTransformInterceptor<T> implements NestInterceptor<T
           success: true,
         }
         if (enableLog) {
-          log4.log({
+          this.log4.log({
             requestUser: JSON.stringify(currentUser),
             request: JSON.stringify(requestInfo),
             response: JSON.stringify(resObj),

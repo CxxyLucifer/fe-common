@@ -11,21 +11,20 @@ import { IOption } from './interface';
 @Catch(HttpException)
 export class ResponseErrorExceptionFilter implements ExceptionFilter {
   option: IOption;
-
+  log4;
   constructor(option?: IOption){
     this.option = option;
+    const { enableLog = false, env, prefix } = option;
+    if (enableLog) {
+      this.log4 = new Log4jsService({level: 'INFO', env, prefix})
+    }
   }
 
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request: Request = ctx.getRequest()
-    const { enableLog = false, env, prefix } = this.option;
-
-    let log4;
-    if (enableLog) {
-      log4 = new Log4jsService({level: 'INFO', env, prefix})
-    }
+    const { enableLog = false } = this.option;
 
     const message = exception.message.message || exception.message.error;
     const errorCode = (exception as any).errorCode;
@@ -50,7 +49,7 @@ export class ResponseErrorExceptionFilter implements ExceptionFilter {
     
     const currentUser = (request as any).user ? (request as any).user : {}
     if (enableLog) {
-      log4.error(`requsetUser:${JSON.stringify(currentUser)},request:${JSON.stringify(errorRequest)},response:${JSON.stringify(errorResponse)}`, '', 'fail')
+      this.log4.error(`requsetUser:${JSON.stringify(currentUser)},request:${JSON.stringify(errorRequest)},response:${JSON.stringify(errorResponse)}`, '', 'fail')
     }
 
     response.status(status);
