@@ -1,11 +1,11 @@
-import { Injectable, HttpStatus } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import * as smtpTransport from 'nodemailer-smtp-transport';
-import { iContent, iMailOptions, EmailSendResVo } from './interface';
+import { iContent, iMailOptions } from './interface';
 
 @Injectable()
 export class EmailService {
-    sendEmail(mailConfig: iContent): Promise<EmailSendResVo> {
+    sendEmail(mailConfig: iContent): Promise<string> {
         return new Promise((resolve, reject) => {
             const {transport = 'default', target, title, text, html, attachments } = mailConfig;
 
@@ -44,23 +44,15 @@ export class EmailService {
             if(attachments) {
                 mailOptions.attachments = attachments
             }
-            let result =  new EmailSendResVo()
-                result.httpCode = HttpStatus.OK
-                result.message = '发送成功!'
-
             try {
                 transporter.sendMail(mailOptions,(err, info)=>{
                     if (err) {
-                        result.httpCode = HttpStatus.INTERNAL_SERVER_ERROR;
-                        result.message = err;
-                        reject(result);
+                        reject('发送失败!');
                     }
-                    resolve(result);
+                    resolve('发送成功!');
                 })
             } catch (err) {
-                result.httpCode = HttpStatus.INTERNAL_SERVER_ERROR;
-                result.message = err;
-                reject(result);
+                reject(err);
             }
         })
     }
