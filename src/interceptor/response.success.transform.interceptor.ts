@@ -4,7 +4,8 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { ApiCode } from '../enum/api.code.enum';
-import { IOption, BaseResponse } from './interface';
+import { IOption } from './interface';
+import { BaseResponse } from '../response';
 
 export class ResponseSuccessTransformInterceptor<T> implements NestInterceptor<T, BaseResponse<T>> {
   option: IOption;

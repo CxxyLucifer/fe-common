@@ -4,9 +4,3 @@ export interface IOption {
     prefix?: string;
 }
 
-export interface BaseResponse<T> {
-    code: number;
-    data: T;
-    success: boolean;
-    message: string;
-  }

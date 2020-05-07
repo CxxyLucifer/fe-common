@@ -5,7 +5,7 @@ const instance = axios.create();
 instance.defaults.headers['Content-Type'] = 'application/json';
 instance.defaults.headers.Accept = 'application/json';
 
-export interface BaseResponse<T> {
+interface BaseResponse<T> {
     code: number;
     data: T;
     success: boolean;
