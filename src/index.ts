@@ -12,4 +12,6 @@ export * from "./filter/response.error.exception.filter";
 export * from "./interceptor/response.success.transform.interceptor";
 export * from "./type-orm/typeorm.logger";
 export * from "./response";
-
+export * from "./auth/auth.module";
+export * from "./auth/auth.service";
+export * from "./auth/jwt.strategy";

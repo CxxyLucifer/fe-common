@@ -27,7 +27,7 @@ export class ConfigGlobalModule {
     static forRoot(options: IOption): DynamicModule {
         const optionProvider = createConfigOptionProvider(options);
         return {
-            module: ConfigModule,
+            module: ConfigGlobalModule,
             providers: [ConfigService, optionProvider],
             exports: [ConfigService]
         };
