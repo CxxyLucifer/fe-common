@@ -1,5 +1,4 @@
 import { Global, Module, DynamicModule } from "@nestjs/common";
-import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 
 import { createOptionProvider } from "./auth.provider";
@@ -8,7 +7,6 @@ import { JwtStrategy } from "./jwt.strategy";
 import { IOption } from "./interface";
 import { 
     COMMON_SECRETKEY, 
-    COMMON_DEFAULT_SGY, 
     COMMON_EXPIREIN 
 } from "../constants/common.constant";
 
@@ -19,8 +17,7 @@ import {
             signOptions: {
                 expiresIn: COMMON_EXPIREIN,
             },
-        }),
-        PassportModule.register({defaultStrategy: COMMON_DEFAULT_SGY})
+        })
     ],
     providers: [AuthService, JwtStrategy,createOptionProvider()],
     exports: [AuthService, JwtStrategy]
@@ -35,8 +32,7 @@ export class AuthModule {
                     signOptions: {
                         expiresIn: COMMON_EXPIREIN,
                     },
-                }),
-                PassportModule.register({defaultStrategy: COMMON_DEFAULT_SGY})
+                })
             ],
             module: AuthModule,
             providers: [AuthService, JwtStrategy, optionProvider],
@@ -53,8 +49,7 @@ export class AuthModule {
             signOptions: {
                 expiresIn: COMMON_EXPIREIN,
             },
-        }),
-        PassportModule.register({defaultStrategy: COMMON_DEFAULT_SGY})
+        })
     ],
     providers: [AuthService,JwtStrategy, createOptionProvider()],
     exports: [AuthService, JwtStrategy]
@@ -69,8 +64,7 @@ export class AuthGlobalModule {
                     signOptions: {
                         expiresIn: COMMON_EXPIREIN,
                     },
-                }),
-                PassportModule.register({defaultStrategy: COMMON_DEFAULT_SGY})
+                })
             ],
             module: AuthGlobalModule,
             providers: [AuthService, JwtStrategy, optionProvider],
